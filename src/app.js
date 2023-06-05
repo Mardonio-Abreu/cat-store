@@ -1,0 +1,12 @@
+const express = require('express');
+const app = new express();
+
+const productRouter = require('./routes/productRoutes');
+
+const PORT = 8080;
+
+app.listen(PORT, () => {
+    console.log(`The server is running in port ${PORT} "UwU"`);
+});
+
+app.use(productRouter);
