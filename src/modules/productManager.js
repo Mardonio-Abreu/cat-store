@@ -79,12 +79,11 @@ class ProductManager {
 
         getProductsById (id) {
             
+            let item;
 
             let catalogue = this.getCatalogue(this.path); 
             
             let flag = false;
-
-            let item;
 
             catalogue.map((product)=>{
                                              

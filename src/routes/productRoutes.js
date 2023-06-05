@@ -18,7 +18,9 @@ router.get('/api/products', (req, res) => {
 
     router.get('/api/products/:pid', (req, res) => {
 
-        const id = req.params.pid;
+        let strId = req.params.pid;
+        let  id = parseInt(strId);
+
         const items = catalogue.getProductsById(id);
 
         res.send({
