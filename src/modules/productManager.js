@@ -29,15 +29,16 @@ class ProductManager {
         
 
                        
-        addProduct (title, description, price, thumbnail, code, stock) {
+        addProduct (title, description, code, price, stats, stock, category, thumbnails) {
 
         
-        try { if(title.length == 0 || description.length == 0 || price.length == 0 || thumbnail.length == 0 || code.length == 0 || stock.length == 0){console.log("Surprise MotherFather!");}
-            }
+        try { if(title.length == 0 || description.length == 0 || code.length == 0 || price.length == 0 || stats.length == 0 || stock.length == 0 || category.length == 0 || thumbnails.length == 0 ){console.log("Surprise MotherFather!");}
+            
+        }
 
         catch (e) {
-            console.error("Data product incomplete!");
-            return;
+            
+            return "Data incomplete!";
                        
         }
 
@@ -48,8 +49,7 @@ class ProductManager {
         catalogue.map((product)=>{
             if (product.code === code){
                 flag = false;
-                console.log("Code already in use!");
-            }
+                }
         })
 
         if (flag){
@@ -64,10 +64,12 @@ class ProductManager {
        
 
 
-        catalogue.push({title, description, price, thumbnail, code, stock, id})
+        catalogue.push({id, title, description, code, price, stats, stock, category, thumbnails})
         const jsonData = JSON.stringify(catalogue, null, 2);
         fs.writeFileSync(this.path, jsonData);
-        console.log("File updated successfully!")
+        return "Product added successfully!";
+        }else{
+            return "Code already in use!";
         }
                 
         }                          
@@ -114,9 +116,9 @@ class ProductManager {
                 let newCatalogue = [...catalogue.slice(0, index), ...catalogue.slice(index + 1)];
                 const jsonData = JSON.stringify(newCatalogue, null, 2);
                 fs.writeFileSync(this.path, jsonData);
-                console.log("Product erased!");
+                return "Product erased!";
             }else{
-                console.log("product not found!");
+                return "Product not found!";
             }
        
         }
@@ -130,10 +132,10 @@ class ProductManager {
                 catalogue[index][field] = fieldValue;
                 const jsonData = JSON.stringify(catalogue, null, 2);
                 fs.writeFileSync(this.path, jsonData);
-                console.log("Product updated!");
+                return "Product updated!";
 
             }else{
-                console.log("Product not found!");
+                return "Product not found!";
             }
 
         }

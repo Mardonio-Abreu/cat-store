@@ -30,10 +30,11 @@ router.get('/api/products', (req, res) => {
 
     });
 
-    router.delete('/api/products', (req, res) => {
+    router.delete('/api/products/:pid', (req, res) => {
 
-        const id = req.params.pid;
-        const items = catalogue.deleteProduct(id);
+        let strId = req.body.id;
+        let  pid = parseInt(strId);
+        const items = catalogue.deleteProduct(pid);
 
         res.send({
             statusCode: 200,
@@ -44,8 +45,12 @@ router.get('/api/products', (req, res) => {
 
     router.put('/api/products/:pid', (req, res) => {
 
-        const id = req.params.pid;
-        const items = catalogue.updateProduct(id, fieldValue);
+        let strId = req.body.id;
+        let  id = parseInt(strId);
+        const field = req.body.field;
+        const fieldValue = req.body.fieldValue;
+        
+        const items = catalogue.updateProduct(id, field, fieldValue);
 
         res.send({
             statusCode: 200,
@@ -54,14 +59,13 @@ router.get('/api/products', (req, res) => {
 
     });
 
-    router.post('/api/products/', (req, res) => {
+    router.post('/api/products/:pid', (req, res) => {
 
-        const id = req.params.pid;
-        const items = catalogue.addProduct(values);
+        const items = catalogue.addProduct(req.body.title, req.body.description, req.body.code, req.body.price, req.body.stats, req.body.stock, req.body.category, req.body.thumbnails);
 
         res.send({
             statusCode: 200,
-            payload: itemss
+            payload: items
         });
 
     });
