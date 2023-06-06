@@ -1,26 +1,41 @@
 //Class that manages the shopping carts
 
 class cartManager {
-    constructor(){
-
-        const product = {
-            id: '0',
-            quantity: 0
-        }
-
+    constructor(id, path){
+        this.path = path;
         this.products = [];
+        this.id = id;
     }
+
+    writeFile(file, jsonFile){
+        const jsonData = JSON.stringify(file, null, 2);
+        fs.writeFileSync(jsonFile, jsonData);
+    }
+
+    createFile (file) {
+        const cartItems = [];
+        this.writeFile(this.path,cartItems);
+    }
+
+    getCart(){
+            
+        if(fs.existsSync(this.path)){
+            let cartJSON = fs.readFileSync(this.path, 'utf-8');
+            let cart = JSON.parse(catalogueJSON);
+            return catalogue;
+        }else{
+            console.log("File not found!");
+         }}
 
     addProduct(id){
 
         this.products.map((product) => {
             if(product.id === id){
-                product.quantity++
+                product.quantity++;
+                return console.log("1 more product added!");
             }else{
-                product.id = id;
-                product.quantity = 1;
-                this.products.push(product);
-                return;
+                this.products.push({id: id, quantity: 1});
+                return console.log("Product added!");
             }
         })
 
