@@ -1,6 +1,7 @@
 const express = require('express');
 const app = new express();
 const productRouter = require('./routes/productRoutes');
+const cartRouter = require('./routes/cartRoutes');
 const PORT = 8080;
 
 app.use(express.json());
@@ -11,3 +12,4 @@ app.listen(PORT, () => {
 });
 
 app.use(productRouter);
+app.use(cartRouter);

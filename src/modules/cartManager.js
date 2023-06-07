@@ -1,18 +1,32 @@
 //Class that manages the shopping carts
-
+const fs = require('fs');
 class cartManager {
     constructor(id, path){
+                
+        this.id = id;
         this.path = path;
         this.products = [];
-        this.id = id;
+
+        this.createFile(this.path);
     }
 
-    writeFile(file, jsonFile){
-        const jsonData = JSON.stringify(file, null, 2);
-        fs.writeFileSync(jsonFile, jsonData);
+    getFile (){
+            
+        if(fs.existsSync(this.path)){
+            let catalogueJSON = fs.readFileSync(this.path, 'utf-8');
+            let catalogue = JSON.parse(catalogueJSON);
+            return catalogue;
+        }else{
+            console.log("File not found!");
+         }
     }
 
-    createFile (file) {
+    writeFile(data){
+        const jsonData = JSON.stringify(data, null, 2);
+        fs.writeFileSync(this.path, jsonData);
+    }
+
+    createFile () {
         const cartItems = [];
         this.writeFile(this.path,cartItems);
     }
@@ -37,6 +51,8 @@ class cartManager {
                 this.products.push({id: id, quantity: 1});
                 return console.log("Product added!");
             }
+
+            this.writeFile(this.products);
         })
 
        
