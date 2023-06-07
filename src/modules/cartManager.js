@@ -1,64 +1,78 @@
-//Class that manages the shopping carts
 const fs = require('fs');
-class cartManager {
-    constructor(id, path){
-                
-        this.id = id;
+const Cart = require('./cart');
+
+class CartManager {
+    constructor(path){
         this.path = path;
-        this.products = [];
+        this.cartArray = [];
+        this.cid = 0;
 
-        this.createFile(this.path);
     }
 
-    getFile (){
+    getCartArray(){
             
         if(fs.existsSync(this.path)){
-            let catalogueJSON = fs.readFileSync(this.path, 'utf-8');
-            let catalogue = JSON.parse(catalogueJSON);
-            return catalogue;
-        }else{
-            console.log("File not found!");
-         }
-    }
-
-    writeFile(data){
-        const jsonData = JSON.stringify(data, null, 2);
-        fs.writeFileSync(this.path, jsonData);
-    }
-
-    createFile () {
-        const cartItems = [];
-        const jsonData = JSON.stringify(cartItems, null, 2);
-        fs.writeFileSync(this.path, jsonData);
-    }
-
-    getCart(){
-            
-        if(fs.existsSync(this.path)){
-            let cartJSON = fs.readFileSync(this.path, 'utf-8');
-            let cart = JSON.parse(cartJSON);
-            return cart;
+            let cartArrayJSON = fs.readFileSync(this.path, 'utf-8');
+            let cartArray = JSON.parse(cartArrayJSON);
+            return cartArray;
         }else{
             console.log("File not found!");
          }}
 
-    addProduct(id){
+    writeCartArray(data){
+        const jsonData = JSON.stringify(data, null, 2);
+        fs.writeFileSync(this.path, jsonData);
+    }
+    
+    createCart(cid){
 
-        this.products.map((product) => {
-            if(product.id === id){
-                product.quantity++;
-                return console.log("1 more product added!");
-            }else{
-                this.products.push({id: id, quantity: 1});
-                return console.log("Product added!");
+        let cartArray = this.getCartArray();
+        cartArray.map((cart) => {
+            if(cart.cid === cid){
+                console.log(`${cid}: Cart code already in use!`);
+                return;
             }
-
-            this.writeFile(this.products);
+            if(cart.cid === 0){
+                const cart = newCart(this.cid++, this.path);
+                this.cartArray.push(cart);
+                this.writeCartArray(cartArray);
+                console.log('Cart created!');
+            }else{
+                const cart = new Cart(cart.id++, this.path);
+                this.cartArray.push(cart);
+                this.writeCartArray(cartArray);
+                console.log('Cart created!');
+            }
         })
+    }
 
-       
+    getCart(cid){
+        let cartArray = this.getCartArray();
+        cartArray.map((item) => {
+            if(item.cid === cid){
+                let cart = item.cid.products;
+                return cart;
+            }else{
+                return 'Cart code not found!';
+            }
+        })
+    }
+
+    addProduct(cid, pid){
+        let cartArray = this.getCartArray();
+        cartArray.map((item) => {
+            if(cid === item.cid){
+                item.cid.addProduct(pid);
+                this.writeCartArray(cartArray);
+                console.log(`Product: ${pid} added to cart: ${cid}`);
+            }else{
+                console.log(`Cart ID: ${cid} not found!`);
+            }
+        })
+    }
+
 
     }
-}
 
-module.exports = cartManager;
+
+}
