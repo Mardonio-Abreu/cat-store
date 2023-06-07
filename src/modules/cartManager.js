@@ -28,15 +28,16 @@ class cartManager {
 
     createFile () {
         const cartItems = [];
-        this.writeFile(this.path,cartItems);
+        const jsonData = JSON.stringify(cartItems, null, 2);
+        fs.writeFileSync(this.path, jsonData);
     }
 
     getCart(){
             
         if(fs.existsSync(this.path)){
             let cartJSON = fs.readFileSync(this.path, 'utf-8');
-            let cart = JSON.parse(catalogueJSON);
-            return catalogue;
+            let cart = JSON.parse(cartJSON);
+            return cart;
         }else{
             console.log("File not found!");
          }}
