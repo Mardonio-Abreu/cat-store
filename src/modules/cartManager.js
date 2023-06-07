@@ -24,24 +24,21 @@ class CartManager {
         fs.writeFileSync(this.path, jsonData);
     }
     
-    createCart(cid){
+    createCart(){
 
         let cartArray = this.getCartArray();
         cartArray.map((cart) => {
-            if(cart.cid === cid){
-                console.log(`${cid}: Cart code already in use!`);
-                return;
-            }
-            if(cart.cid === 0){
+          
+            if(cart.cid === 0 ){
                 const cart = newCart(this.cid++, this.path);
                 this.cartArray.push(cart);
                 this.writeCartArray(cartArray);
-                console.log('Cart created!');
+                return ('Cart created!');
             }else{
                 const cart = new Cart(cart.id++, this.path);
                 this.cartArray.push(cart);
                 this.writeCartArray(cartArray);
-                console.log('Cart created!');
+                return ('Cart created!');
             }
         })
     }
@@ -72,7 +69,8 @@ class CartManager {
     }
 
 
-    }
-
-
 }
+
+module.exports = CartManager;
+
+
