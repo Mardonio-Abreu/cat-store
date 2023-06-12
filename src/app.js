@@ -15,8 +15,16 @@ const cartRouter = require('./routes/cartRoutes');
 
 const items = catalogue.getProducts();
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+let products = [];
+
+items.map((item) => {
+    products.push(item.title);
+});
+
+let context = [{items: products}];
+
+/* app.use(express.json());
+app.use(express.urlencoded({extended: true})); */
 
 app.engine('handlebars', handlebars.engine());
 
@@ -29,19 +37,10 @@ app.set('view engine', 'handlebars');
 
 
 app.get('/', (req, res) => {
+      
+    res.render('index', {products});
     
-    items.map((item) => {
-        
-        const title = item.title;
-        const description = item.description;
-        const price = item.price;
-        
-        res.render('index',{ title, price, description
-           
-        })
-    });
-
-    });
+});
 
 
 
