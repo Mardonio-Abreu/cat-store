@@ -9,8 +9,18 @@ const catalogue = new Catalogue(FILE);
 
 const handlebars = require('express-handlebars');
 
-const productRouter = require('./routes/productRoutes');
-const cartRouter = require('./routes/cartRoutes');
+const http = require('http');
+const server = http.createServer(app);
+
+const routerRealTimeProducts = require('./routes/realTimeProductsRoute');
+
+const {Server} = require('socket.io');
+const io = new Server(server);
+
+
+
+/* const productRouter = require('./routes/productRoutes');
+const cartRouter = require('./routes/cartRoutes'); */
 
 
 const items = catalogue.getProducts();
@@ -28,8 +38,12 @@ app.use(express.urlencoded({extended: true})); */
 
 app.engine('handlebars', handlebars.engine());
 
+app.use(express.static(__dirname + '/' + '/public'));
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
+
+app.use(routerRealTimeProducts);
 
 //app.use(productRouter);
 //app.use(cartRouter);
@@ -42,8 +56,12 @@ app.get('/', (req, res) => {
     
 });
 
+io.on('connection', (socket) => {
+    console.log('New user connection! UwU')
+})
 
 
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
     console.log(`The server is running in port ${PORT} "UwU"`);
 });
