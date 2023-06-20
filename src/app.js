@@ -19,6 +19,7 @@ const io = new Server(server);
 
 
 
+
 /* const productRouter = require('./routes/productRoutes');
 const cartRouter = require('./routes/cartRoutes'); */
 
@@ -43,7 +44,9 @@ app.use(express.static(__dirname + '/' + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
-app.use(routerRealTimeProducts);
+app.get('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts', {products});
+});
 
 //app.use(productRouter);
 //app.use(cartRouter);
@@ -57,8 +60,8 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('New user connection! UwU')
-})
+    console.log('New user connection! UwU');
+});
 
 
 

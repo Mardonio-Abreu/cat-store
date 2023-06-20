@@ -1,7 +1,19 @@
-<h1>Surprise MotherFather!</h1>
+<ul>
+  {{#each products}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>
 
-<script src="/src/js/index.js"></script>
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
+<script type="text/javascript">
+    let socket = io();
+
+    socket.on('connect', () => {
+        console.log('Connected to the server');
+    });
+</script>
+
 
 
 
