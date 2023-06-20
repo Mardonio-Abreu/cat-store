@@ -16,26 +16,9 @@ const routerRealTimeProducts = require('./routes/realTimeProductsRoute');
 
 const {Server} = require('socket.io');
 const io = new Server(server);
-
-
-
-
-/* const productRouter = require('./routes/productRoutes');
-const cartRouter = require('./routes/cartRoutes'); */
-
-
 const items = catalogue.getProducts();
 
-let products = [];
-
-items.map((item) => {
-    products.push(item.title);
-});
-
-let context = [{items: products}];
-
-/* app.use(express.json());
-app.use(express.urlencoded({extended: true})); */
+let context = [{items: items}];
 
 app.engine('handlebars', handlebars.engine());
 
@@ -48,11 +31,6 @@ app.get('/realtimeproducts', (req, res) => {
     res.render('realTimeProducts', {products});
 });
 
-//app.use(productRouter);
-//app.use(cartRouter);
-
-
-
 app.get('/', (req, res) => {
       
     res.render('index', {products});
@@ -62,8 +40,6 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('New user connection! UwU');
 });
-
-
 
 server.listen(PORT, () => {
     console.log(`The server is running in port ${PORT} "UwU"`);
