@@ -28,12 +28,12 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
 app.get('/realtimeproducts', (req, res) => {
-    res.render('realTimeProducts', {products});
+    res.render('realTimeProducts', {items});
 });
 
 app.get('/', (req, res) => {
       
-    res.render('index', {products});
+    res.render('index', {items});
     
 });
 
