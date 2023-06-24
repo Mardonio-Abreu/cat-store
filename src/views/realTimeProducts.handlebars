@@ -1,9 +1,3 @@
-<ul>
-  {{#each items}}
-    <li>{{this.title}}</li>
-  {{/each}}
-</ul>
-
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
 <script type="text/javascript">
@@ -14,7 +8,11 @@
     });
 </script>
 
-
+<ul>
+  {{#each items}}
+    <li>{{this.title}}</li>
+  {{/each}}
+</ul>
 
 
 
