@@ -1,12 +1,11 @@
 const express = require('express');
 const app = new express();
 
-const PORT = 8081;
+const PORT = 8080;
 const FILE = './data.json'
 
 const Catalogue = require('../src/modules/productManager');
 const catalogue = new Catalogue(FILE);
-
 const handlebars = require('express-handlebars');
 
 const http = require('http');
