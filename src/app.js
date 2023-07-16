@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const express = require('express');
 const app = new express();
 
@@ -15,16 +17,22 @@ const routerRealTimeProducts = require('./routes/realTimeProductsRoute');
 
 const {Server} = require('socket.io');
 const io = new Server(server);
-const items = catalogue.getProducts();
+
+let items = catalogue.getProducts();
 
 let context = [{items: items}];
 
+fs.watchFile(FILE, (curr, prev) => {
+    context = [{items: items}];
+  });
+
+
+
 app.engine('handlebars', handlebars.engine());
-
-app.use(express.static(__dirname + '/' + '/public'));
-
-app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
+
+app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views');
 
 app.get('/realtimeproducts', (req, res) => {
     res.render('realTimeProducts', {items});

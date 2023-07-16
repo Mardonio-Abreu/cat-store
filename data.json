@@ -28,5 +28,36 @@
       "path2",
       "path3"
     ]
+  },
+  {
+    "id": 12,
+    "title": "Sea mug",
+    "description": "ocean blue mug",
+    "code": "obm1",
+    "price": 3.5,
+    "status": true,
+    "stock": 25,
+    "category": "mugs",
+    "thumbnails": [
+      "path1",
+      "path2",
+      "path3"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Sea mug",
+    "description": "ocean blue mug",
+    "code": "obm1",
+    "price": 3.5,
+    "status": true,
+    "stock": 25,
+    "category": "mugs",
+    "thumbnails": [
+      "path1",
+      "path2",
+      "path3"
+    ]
   }
+  
 ]
