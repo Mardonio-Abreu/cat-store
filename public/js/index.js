@@ -1,5 +1,5 @@
 let socket = io();
 
-    socket.on('connect', () => {
-       console.log('Connected to the server');
-    });
+    socket.on('message', (socket) => {
+            console.log('Connected to the server');
+        });             

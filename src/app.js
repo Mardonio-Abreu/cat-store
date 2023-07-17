@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 const express = require('express');
 const app = new express();
 
@@ -22,17 +20,14 @@ let items = catalogue.getProducts();
 
 let context = [{items: items}];
 
-fs.watchFile(FILE, (curr, prev) => {
-    context = [{items: items}];
-  });
-
-
-
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname+'/public'));
+
 app.set('views', __dirname + '/views');
+
+app.use('/realtimeproducts', routerRealTimeProducts);
 
 app.get('/realtimeproducts', (req, res) => {
     res.render('realTimeProducts', {items});
@@ -46,6 +41,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('New user connection! UwU');
+    socket.emit('message', 'Surprise MotherFather!');
 });
 
 server.listen(PORT, () => {

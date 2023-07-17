@@ -1,12 +1,22 @@
-<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
-<script src="/public/js/index.js" type="text/javascript"></script>
+<div>
+  <ul>
+    {{#each items}}
+      <li>{{this.title}}</li>
+    {{/each}}
+  </ul>
+</div>
 
-<ul>
-  {{#each items}}
-    <li>{{this.title}}</li>
-  {{/each}}
-</ul>
+<script src="/socket.io/socket.io.js"></script>
+
+
+<script>
+  let socket = io();
+  socket.on('messages', function () {
+    console.log('Connected to the server');
+    
+  });    
+</script>
 
 
 
