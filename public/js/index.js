@@ -1,3 +1,4 @@
+//IO socket
 let socket = io();
 
     socket.on('message', (socket) => {

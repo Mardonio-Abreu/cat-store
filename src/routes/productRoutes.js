@@ -1,3 +1,4 @@
+//Product route
 const {Router} = require('express');
 const ProductManager = require('../modules/productManager');
 const FILE = './data.json'
